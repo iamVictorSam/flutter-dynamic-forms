@@ -9,7 +9,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _formCount = 0;
-  final List<Map<String, dynamic>> _values = [];
+  final List<Map<String, dynamic>> _dataArray = [];
   String? _data = '';
 
   @override
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ...List.generate(_formCount, (index) => form(index)),
               buttonRow(),
               const SizedBox(height: 10),
-              Visibility(visible: _values.isNotEmpty, child: Text(_data!)),
+              Visibility(visible: _dataArray.isNotEmpty, child: Text(_data!)),
               const SizedBox(height: 30),
             ],
           ),
@@ -57,11 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
             visible: _formCount > 0,
             child: IconButton(
                 onPressed: () {
-                  if (_values.isNotEmpty) {
-                    _values.removeAt(_values.length - 1);
+                  if (_dataArray.isNotEmpty) {
+                    _dataArray.removeAt(_dataArray.length - 1);
                   }
                   setState(() {
-                    _data = _values.toString();
+                    _data = _dataArray.toString();
                     _formCount--;
                   });
                 },
@@ -88,27 +88,27 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onUpdate(int key, String val) {
     void addData() {
       Map<String, dynamic> json = {'id': key, 'value': val};
-      _values.add(json);
+      _dataArray.add(json);
       setState(() {
-        _data = _values.toString();
+        _data = _dataArray.toString();
       });
     }
 
-    if (_values.isEmpty) {
+    if (_dataArray.isEmpty) {
       addData();
     } else {
-      for (var map in _values) {
+      for (var map in _dataArray) {
         if (map["id"] == key) {
-          _values[key]['value'] = val;
+          _dataArray[key]['value'] = val;
           setState(() {
-            _data = _values.toString();
+            _data = _dataArray.toString();
           });
           break;
         }
       }
 
-      for (var map in _values) {
-        for (var map in _values) {
+      for (var map in _dataArray) {
+        for (var map in _dataArray) {
           if (map["id"] == key) {
             return;
           }
