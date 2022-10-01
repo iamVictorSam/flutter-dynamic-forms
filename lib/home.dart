@@ -10,20 +10,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _formCount = 0;
   final List<Map<String, dynamic>> _values = [];
-  String? _result = '';
+  String? _data = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add, color: Colors.white),
-        onPressed: () async {
-          setState(() {
-            _formCount++;
-          });
-        },
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -38,8 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 22)),
               const SizedBox(height: 20),
               ...List.generate(_formCount, (index) => _form(index)),
+              buttonRow(),
               const SizedBox(height: 10),
-              Text(_result!),
+              Text(_data!),
               const SizedBox(height: 30),
             ],
           ),
@@ -48,22 +41,47 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _form(int key) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: TextFormField(
-        decoration: InputDecoration(hintText: 'Form ${key + 1}'),
-        onChanged: (val) => _onUpdate(key, val),
-      ),
-    );
-  }
+  Padding _form(int key) => Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: TextFormField(
+          decoration: InputDecoration(hintText: 'Form ${key + 1}'),
+          onChanged: (val) => _onUpdate(key, val),
+        ),
+      );
 
-  _onUpdate(int key, String val) {
+  Row buttonRow() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          IconButton(
+              onPressed: () {
+                setState(() => _formCount--);
+              },
+              icon: const CircleAvatar(
+                backgroundColor: Colors.red,
+                child: Icon(
+                  Icons.remove,
+                ),
+              )),
+          IconButton(
+              onPressed: () {
+                setState(() => _formCount++);
+              },
+              icon: const CircleAvatar(
+                backgroundColor: Colors.teal,
+                child: Icon(
+                  Icons.add,
+                ),
+              )),
+        ],
+      );
+
+  void _onUpdate(int key, String val) {
     void addJson() {
       Map<String, dynamic> json = {'id': key, 'value': val};
       _values.add(json);
       setState(() {
-        _result = _values.toString();
+        _data = _values.toString();
       });
     }
 
@@ -74,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (map["id"] == key) {
           _values[key]['value'] = val;
           setState(() {
-            _result = _values.toString();
+            _data = _values.toString();
           });
           break;
         }
