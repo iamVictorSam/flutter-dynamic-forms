@@ -29,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.teal,
                       fontSize: 22)),
               const SizedBox(height: 20),
-              ...List.generate(_formCount, (index) => _form(index)),
+              ...List.generate(_formCount, (index) => form(index)),
               buttonRow(),
               const SizedBox(height: 10),
-              Text(_data!),
+              Visibility(visible: _values.isNotEmpty, child: Text(_data!)),
               const SizedBox(height: 30),
             ],
           ),
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Padding _form(int key) => Padding(
+  Padding form(int key) => Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
         child: TextFormField(
           decoration: InputDecoration(hintText: 'Form ${key + 1}'),
@@ -53,16 +53,25 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          IconButton(
-              onPressed: () {
-                setState(() => _formCount--);
-              },
-              icon: const CircleAvatar(
-                backgroundColor: Colors.red,
-                child: Icon(
-                  Icons.remove,
-                ),
-              )),
+          Visibility(
+            visible: _formCount > 0,
+            child: IconButton(
+                onPressed: () {
+                  if (_values.isNotEmpty) {
+                    _values.removeAt(_values.length - 1);
+                  }
+                  setState(() {
+                    _data = _values.toString();
+                    _formCount--;
+                  });
+                },
+                icon: const CircleAvatar(
+                  backgroundColor: Colors.red,
+                  child: Icon(
+                    Icons.remove,
+                  ),
+                )),
+          ),
           IconButton(
               onPressed: () {
                 setState(() => _formCount++);
@@ -77,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
   void _onUpdate(int key, String val) {
-    void addJson() {
+    void addData() {
       Map<String, dynamic> json = {'id': key, 'value': val};
       _values.add(json);
       setState(() {
@@ -86,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     if (_values.isEmpty) {
-      addJson();
+      addData();
     } else {
       for (var map in _values) {
         if (map["id"] == key) {
@@ -104,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return;
           }
         }
-        addJson();
+        addData();
       }
     }
   }
