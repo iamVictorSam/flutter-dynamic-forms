@@ -9,17 +9,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _formCount = 0;
-  List<Map<String, dynamic>>? _values;
-  String? _result;
-  final formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    _formCount = 0;
-    _values = [];
-    _result = '';
-    super.initState();
-  }
+  final List<Map<String, dynamic>> _values = [];
+  String? _result = '';
 
   @override
   Widget build(BuildContext context) {
@@ -33,23 +24,24 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const SizedBox(height: 20),
-            const Text('Name of Programming Languages',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                    fontSize: 22)),
-            ...List.generate(_formCount, (index) => _row(index)),
-            const SizedBox(height: 10),
-            Text(_result!),
-            const SizedBox(height: 50),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(height: 20),
+              const Text('Name of Programming Languages',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.teal,
+                      fontSize: 22)),
+              ...List.generate(_formCount, (index) => _row(index)),
+              const SizedBox(height: 10),
+              Text(_result!),
+              const SizedBox(height: 50),
+            ],
+          ),
         ),
       ),
     );
