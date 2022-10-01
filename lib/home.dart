@@ -35,20 +35,21 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: <Widget>[
-              ListView.builder(
-                itemCount: _formCount,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => _row(index),
-              ),
-              const SizedBox(height: 10),
-              Text(_result!),
-              const SizedBox(height: 50),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(height: 20),
+            const Text('Name of Programming Languages',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                    fontSize: 22)),
+            ...List.generate(_formCount, (index) => _row(index)),
+            const SizedBox(height: 10),
+            Text(_result!),
+            const SizedBox(height: 50),
+          ],
         ),
       ),
     );
@@ -75,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
       Map<String, dynamic> json = {'id': key, 'value': val};
       _values!.add(json);
       setState(() {
-        // _values!.clear();
         _result = _values.toString();
       });
     }
@@ -96,7 +96,6 @@ class _HomeScreenState extends State<HomeScreen> {
       for (var map in _values!) {
         for (var map in _values!) {
           if (map["id"] == key) {
-            print('is in');
             return;
           }
         }
