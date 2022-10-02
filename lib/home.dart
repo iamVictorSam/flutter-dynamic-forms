@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const SizedBox(height: 20),
-              const Text('Name of Programming Languages',
+              const Text('Names of Programming Languages',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.teal,
