@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Padding form(int key) => Padding(
+  Widget form(int key) => Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
         child: TextFormField(
           decoration: InputDecoration(hintText: 'Form ${key + 1}'),
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  Row buttonRow() => Row(
+  Widget buttonRow() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
