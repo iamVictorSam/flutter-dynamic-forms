@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(height: 20),
+              const SizedBox(height: 19),
               const Text('Names of Programming Languages',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
