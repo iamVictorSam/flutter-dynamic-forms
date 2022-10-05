@@ -16,6 +16,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
         useMaterial3: true,
+        inputDecorationTheme: const InputDecorationTheme(
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 20,
+          ),
+          border: OutlineInputBorder(
+            gapPadding: 10,
+          ),
+        ),
       ),
       home: const HomeScreen(),
     );
